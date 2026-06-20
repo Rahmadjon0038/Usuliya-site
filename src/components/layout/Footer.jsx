@@ -101,6 +101,26 @@ const Footer = () => {
               <li><a href="#curriculum" className="hover:text-white transition-colors">Dastur</a></li>
               <li><a href="#results" className="hover:text-white transition-colors">Natijalar</a></li>
               <li><a href="#pricing" className="hover:text-white transition-colors">Narxlar</a></li>
+              <li>
+                <a
+                  href="/privacy.pdf"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="hover:text-white transition-colors"
+                >
+                  Privacy policy
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/eng-privacy.pdf"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="hover:text-white transition-colors"
+                >
+                  English privacy policy
+                </a>
+              </li>
             </ul>
           </div>
         </div>
