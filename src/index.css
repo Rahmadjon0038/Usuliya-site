@@ -1,0 +1,54 @@
+/* ==================== ENG YUQORIDA BO'LISHI SHART ==================== */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:wght@400;500&display=swap');
+
+/* Keyin Tailwind import */
+@import "tailwindcss";
+
+/* Keyin @theme va qolgan CSS */
+@theme {
+  --font-montserrat: "Montserrat", sans-serif;
+  --font-roboto: "Roboto", sans-serif;
+  --color-primary: #00674F;
+  --color-accent: #0B9F6E;
+  --color-secondary: #064E3B;
+  --color-life-white: #FAF9F6;
+  --color-dark-navy: #022c22;
+  --color-deep-blue: #064E3B;
+}
+
+:root {
+  font-family: var(--font-roboto);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-montserrat);
+}
+
+.main-background {
+  background-color: var(--color-life-white);
+  background-image: radial-gradient(var(--color-primary) 0.5px, transparent 0.5px);
+  background-size: 24px 24px;
+  background-position: center;
+}
+
+.btn-pill {
+  @apply rounded-[65px] bg-primary px-8 md:px-10 py-3 md:py-4 text-base md:text-lg font-bold text-white hover:scale-105 transition-transform duration-300 shadow-lg text-center inline-block;
+}
+
+.section-blue {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.card-white {
+  @apply bg-white rounded-3xl p-8 shadow-xl text-dark-navy;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+.animate-float-slow {
+  animation: float 6s ease-in-out infinite;
+}

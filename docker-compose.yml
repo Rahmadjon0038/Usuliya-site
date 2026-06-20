@@ -1,0 +1,11 @@
+services:
+  web:
+    build:
+      context: .
+    image: "${APP_NAME:-astracode}:${IMAGE_TAG:-latest}"
+    container_name: "${APP_NAME:-astracode}"
+    ports:
+      - "${PORT:-3000}:3000"
+    restart: unless-stopped
+    environment:
+      PORT: 3000
