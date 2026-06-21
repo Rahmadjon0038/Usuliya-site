@@ -103,9 +103,7 @@ const Footer = () => {
               <li><a href="#pricing" className="hover:text-white transition-colors">Narxlar</a></li>
               <li>
                 <a
-                  href="/privacy.pdf"
-                  target="_blank"
-                  rel="noreferrer"
+                  href="/privacy"
                   className="hover:text-white transition-colors"
                 >
                   Privacy policy
@@ -113,9 +111,7 @@ const Footer = () => {
               </li>
               <li>
                 <a
-                  href="/eng-privacy.pdf"
-                  target="_blank"
-                  rel="noreferrer"
+                  href="/eng-privacy"
                   className="hover:text-white transition-colors"
                 >
                   English privacy policy

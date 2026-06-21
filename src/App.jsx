@@ -9,9 +9,24 @@ import Results from "./components/sections/Results.jsx";
 import Pricing from "./components/sections/Pricing.jsx";
 import FAQ from "./components/sections/FAQ.jsx";
 import Footer from "./components/layout/Footer.jsx";
+import PrivacyPage from "./components/pages/PrivacyPage.jsx";
 
 function App() {
+  const pathname = window.location.pathname.replace(/\/+$/, "") || "/";
+  const privacyPdfByRoute = {
+    "/privacy": "/privacy.pdf",
+    "/privacy.pdf": "/privacy.pdf",
+    "/eng-privacy": "/eng-privacy.pdf",
+    "/eng-privacy.pdf": "/eng-privacy.pdf",
+  };
+  const privacyPdfSrc = privacyPdfByRoute[pathname];
+  const isPrivacyRoute = Boolean(privacyPdfSrc);
+
   useEffect(() => {
+    if (isPrivacyRoute) {
+      return undefined;
+    }
+
     const duration = 1100;
     const headerOffset = 96;
 
@@ -73,7 +88,25 @@ function App() {
 
     document.addEventListener("click", handleDocumentClick);
     return () => document.removeEventListener("click", handleDocumentClick);
-  }, []);
+  }, [isPrivacyRoute]);
+
+  if (privacyPdfSrc === "/privacy.pdf") {
+    return (
+      <PrivacyPage
+        title="Privacy policy"
+        pdfSrc={privacyPdfSrc}
+      />
+    );
+  }
+
+  if (privacyPdfSrc === "/eng-privacy.pdf") {
+    return (
+      <PrivacyPage
+        title="English privacy policy"
+        pdfSrc={privacyPdfSrc}
+      />
+    );
+  }
 
   return (
     <div className="min-h-screen bg-life-white font-roboto text-dark-navy overflow-x-hidden selection:bg-primary selection:text-white">
