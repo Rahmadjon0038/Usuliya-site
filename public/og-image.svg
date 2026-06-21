@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" fill="none">
+  <rect width="1200" height="630" fill="#FAF9F6"/>
+  <circle cx="1030" cy="120" r="180" fill="#00674F" fill-opacity="0.10"/>
+  <circle cx="180" cy="520" r="220" fill="#0B9F6E" fill-opacity="0.10"/>
+  <rect x="70" y="70" width="1060" height="490" rx="42" fill="white" stroke="#00674F" stroke-opacity="0.12"/>
+  <text x="120" y="180" fill="#00674F" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" letter-spacing="4">USULIYA</text>
+  <text x="120" y="265" fill="#022C22" font-family="Arial, Helvetica, sans-serif" font-size="72" font-weight="800">Arab tilini 0 dan o'rganish</text>
+  <text x="120" y="340" fill="#4B5563" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="400">10 ta darsda harflarni ajratish, o'qish va yozish asoslarini mustahkamlang.</text>
+  <text x="120" y="430" fill="#00674F" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">usuliya.uz</text>
+</svg>

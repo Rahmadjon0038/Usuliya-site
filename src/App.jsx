@@ -10,6 +10,7 @@ import Pricing from "./components/sections/Pricing.jsx";
 import FAQ from "./components/sections/FAQ.jsx";
 import Footer from "./components/layout/Footer.jsx";
 import PrivacyPage from "./components/pages/PrivacyPage.jsx";
+import SeoHead from "./components/SeoHead.jsx";
 
 function App() {
   const pathname = window.location.pathname.replace(/\/+$/, "") || "/";
@@ -21,6 +22,53 @@ function App() {
   };
   const privacyPdfSrc = privacyPdfByRoute[pathname];
   const isPrivacyRoute = Boolean(privacyPdfSrc);
+  const siteOrigin = window.location.origin;
+  const canonicalPath =
+    pathname === "/privacy.pdf"
+      ? "/privacy"
+      : pathname === "/eng-privacy.pdf"
+        ? "/eng-privacy"
+        : pathname;
+
+  const seoConfig = (() => {
+    if (privacyPdfSrc === "/privacy.pdf") {
+      return {
+        title: "Privacy policy | USULIYA",
+        description:
+          "USULIYA privacy policy sahifasi. Platformada ma'lumotlar qanday ishlatilishi va himoyalanishi haqida ma'lumot.",
+        robots: "noindex, follow",
+        lang: "uz-Latn",
+        canonicalUrl: `${siteOrigin}/privacy`,
+        keywords: "USULIYA privacy policy, maxfiylik siyosati, privacy policy",
+        pageType: "article",
+      };
+    }
+
+    if (privacyPdfSrc === "/eng-privacy.pdf") {
+      return {
+        title: "English privacy policy | USULIYA",
+        description:
+          "USULIYA English privacy policy page. Learn how data is used and protected on the platform.",
+        robots: "noindex, follow",
+        lang: "en",
+        canonicalUrl: `${siteOrigin}/eng-privacy`,
+        keywords: "USULIYA English privacy policy, privacy policy",
+        pageType: "article",
+      };
+    }
+
+    return {
+      title: "USULIYA | Arab tilini 0 dan o'rganish",
+      description:
+        "USULIYA - arab tilini 0 dan o'rganish uchun zamonaviy platforma. 10 ta darsda harflarni ajratish, o'qish va yozish asoslarini mustahkamlang.",
+      robots: "index, follow, max-image-preview:large",
+      lang: "uz-Latn",
+      canonicalUrl: `${siteOrigin}${canonicalPath}`,
+      keywords:
+        "USULIYA, arab tili, arab tilini o'rganish, online arab tili, arab alifbosi, 0 dan arab tili, usuliya academy",
+      pageType: "WebSite",
+    };
+  })();
 
   useEffect(() => {
     if (isPrivacyRoute) {
@@ -92,36 +140,39 @@ function App() {
 
   if (privacyPdfSrc === "/privacy.pdf") {
     return (
-      <PrivacyPage
-        title="Privacy policy"
-        pdfSrc={privacyPdfSrc}
-      />
+      <>
+        <SeoHead config={seoConfig} siteOrigin={siteOrigin} />
+        <PrivacyPage title="Privacy policy" pdfSrc={privacyPdfSrc} />
+      </>
     );
   }
 
   if (privacyPdfSrc === "/eng-privacy.pdf") {
     return (
-      <PrivacyPage
-        title="English privacy policy"
-        pdfSrc={privacyPdfSrc}
-      />
+      <>
+        <SeoHead config={seoConfig} siteOrigin={siteOrigin} />
+        <PrivacyPage title="English privacy policy" pdfSrc={privacyPdfSrc} />
+      </>
     );
   }
 
   return (
-    <div className="min-h-screen bg-life-white font-roboto text-dark-navy overflow-x-hidden selection:bg-primary selection:text-white">
-      <Navbar />
-      <main>
-        <Hero />
-        <WhoIsFor />
-        <Curriculum />
-        <VideoGuide />
-        <Results />
-        <Pricing />
-        <FAQ />
-      </main>
-      <Footer />
-    </div>
+    <>
+      <SeoHead config={seoConfig} siteOrigin={siteOrigin} />
+      <div className="min-h-screen bg-life-white font-roboto text-dark-navy overflow-x-hidden selection:bg-primary selection:text-white">
+        <Navbar />
+        <main>
+          <Hero />
+          <WhoIsFor />
+          <Curriculum />
+          <VideoGuide />
+          <Results />
+          <Pricing />
+          <FAQ />
+        </main>
+        <Footer />
+      </div>
+    </>
   );
 }
 

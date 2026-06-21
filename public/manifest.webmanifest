@@ -1,0 +1,17 @@
+{
+  "name": "USULIYA",
+  "short_name": "USULIYA",
+  "description": "Arab tilini 0 dan o'rganish uchun zamonaviy platforma.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#FAF9F6",
+  "theme_color": "#00674F",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
