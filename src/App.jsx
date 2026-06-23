@@ -14,45 +14,38 @@ import SeoHead from "./components/SeoHead.jsx";
 
 function App() {
   const pathname = window.location.pathname.replace(/\/+$/, "") || "/";
-  const privacyPdfByRoute = {
-    "/privacy": "/privacy.pdf",
-    "/privacy.pdf": "/privacy.pdf",
-    "/eng-privacy": "/eng-privacy.pdf",
-    "/eng-privacy.pdf": "/eng-privacy.pdf",
+  const privacyLangByRoute = {
+    "/privacy": "uz",
+    "/eng-privacy": "en",
   };
-  const privacyPdfSrc = privacyPdfByRoute[pathname];
-  const isPrivacyRoute = Boolean(privacyPdfSrc);
+  const privacyLang = privacyLangByRoute[pathname];
+  const isPrivacyRoute = Boolean(privacyLang);
   const siteOrigin = window.location.origin;
-  const canonicalPath =
-    pathname === "/privacy.pdf"
-      ? "/privacy"
-      : pathname === "/eng-privacy.pdf"
-        ? "/eng-privacy"
-        : pathname;
+  const canonicalPath = pathname;
 
   const seoConfig = (() => {
-    if (privacyPdfSrc === "/privacy.pdf") {
+    if (privacyLang === "uz") {
       return {
-        title: "Privacy policy | USULIYA",
+        title: "Maxfiylik siyosati | USULIYA",
         description:
-          "USULIYA privacy policy sahifasi. Platformada ma'lumotlar qanday ishlatilishi va himoyalanishi haqida ma'lumot.",
-        robots: "noindex, follow",
+          "USULIYA maxfiylik siyosati. Platformada shaxsiy ma'lumotlar qanday yig'ilishi, ishlatilishi va himoyalanishi haqida ma'lumot.",
+        robots: "index, follow",
         lang: "uz-Latn",
         canonicalUrl: `${siteOrigin}/privacy`,
-        keywords: "USULIYA privacy policy, maxfiylik siyosati, privacy policy",
+        keywords: "USULIYA maxfiylik siyosati, privacy policy, shaxsiy ma'lumotlar",
         pageType: "article",
       };
     }
 
-    if (privacyPdfSrc === "/eng-privacy.pdf") {
+    if (privacyLang === "en") {
       return {
-        title: "English privacy policy | USULIYA",
+        title: "Privacy Policy | USULIYA",
         description:
-          "USULIYA English privacy policy page. Learn how data is used and protected on the platform.",
-        robots: "noindex, follow",
+          "USULIYA privacy policy. Learn how personal data is collected, used and protected on the platform.",
+        robots: "index, follow",
         lang: "en",
         canonicalUrl: `${siteOrigin}/eng-privacy`,
-        keywords: "USULIYA English privacy policy, privacy policy",
+        keywords: "USULIYA privacy policy, personal data, data protection",
         pageType: "article",
       };
     }
@@ -138,20 +131,11 @@ function App() {
     return () => document.removeEventListener("click", handleDocumentClick);
   }, [isPrivacyRoute]);
 
-  if (privacyPdfSrc === "/privacy.pdf") {
+  if (isPrivacyRoute) {
     return (
       <>
         <SeoHead config={seoConfig} siteOrigin={siteOrigin} />
-        <PrivacyPage title="Privacy policy" pdfSrc={privacyPdfSrc} />
-      </>
-    );
-  }
-
-  if (privacyPdfSrc === "/eng-privacy.pdf") {
-    return (
-      <>
-        <SeoHead config={seoConfig} siteOrigin={siteOrigin} />
-        <PrivacyPage title="English privacy policy" pdfSrc={privacyPdfSrc} />
+        <PrivacyPage lang={privacyLang} />
       </>
     );
   }

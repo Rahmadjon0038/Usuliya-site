@@ -106,7 +106,7 @@ const Footer = () => {
                   href="/privacy"
                   className="hover:text-white transition-colors"
                 >
-                  Privacy policy
+                  Maxfiylik siyosati
                 </a>
               </li>
               <li>
@@ -114,7 +114,7 @@ const Footer = () => {
                   href="/eng-privacy"
                   className="hover:text-white transition-colors"
                 >
-                  English privacy policy
+                  Privacy Policy (English)
                 </a>
               </li>
             </ul>
