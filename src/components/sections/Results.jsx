@@ -1,9 +1,21 @@
-import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { X } from "lucide-react";
 import arabOffice from "../../assets/results/arab_office.png";
 import quranStudent from "../../assets/results/quran_student.png";
 import successTeam from "../../assets/results/success_team.png";
 
 const Results = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+  const [submitSuccess, setSubmitSuccess] = useState("");
+  const [formData, setFormData] = useState({
+    fullName: "",
+    phone: "",
+    address: "",
+  });
+
   const results = [
     {
       image: arabOffice,
@@ -27,6 +39,83 @@ const Results = () => {
       label: "Hamkor kompaniyalar"
     }
   ];
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSubmitError("");
+    setSubmitSuccess("");
+  };
+
+  useEffect(() => {
+    if (!isModalOpen) {
+      return undefined;
+    }
+
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        setIsModalOpen(false);
+      }
+    };
+
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isModalOpen]);
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setSubmitError("");
+    setSubmitSuccess("");
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch("http://localhost:3333/api/leads", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Lead yuborishda xatolik yuz berdi");
+      }
+
+      const createdLead = await response.json();
+      console.log("Yuborilgan lead:", createdLead);
+      setSubmitSuccess("Ma'lumotlaringiz yuborildi.");
+      setFormData({
+        fullName: "",
+        phone: "",
+        address: "",
+      });
+
+      window.setTimeout(() => {
+        closeModal();
+      }, 900);
+    } catch (error) {
+      console.error("Lead yuborilmadi:", error);
+      setSubmitError(
+        error instanceof Error
+          ? error.message
+          : "Lead yuborishda xatolik yuz berdi"
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <section id="results" className="py-20 md:py-32 px-6 bg-white overflow-hidden">
@@ -102,6 +191,7 @@ const Results = () => {
           <motion.button 
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            onClick={() => setIsModalOpen(true)}
             className="relative z-10 bg-white text-primary px-10 py-5 rounded-2xl font-black text-lg md:text-xl shadow-2xl shadow-black/20"
           >
             KURSGA YOZILISH
@@ -112,6 +202,108 @@ const Results = () => {
           <div className="absolute bottom-0 left-0 w-64 h-64 bg-black/10 rounded-full translate-y-1/2 -translate-x-1/2 blur-3xl"></div>
         </motion.div>
       </div>
+
+      <AnimatePresence>
+        {isModalOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-dark-navy/70 backdrop-blur-md"
+            onClick={() => setIsModalOpen(false)}
+          >
+            <motion.div
+              initial={{ opacity: 0, y: 30, scale: 0.96 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 20, scale: 0.98 }}
+              transition={{ duration: 0.25 }}
+              onClick={(event) => event.stopPropagation()}
+              className="relative w-full max-w-xl rounded-[32px] bg-white p-6 md:p-8 shadow-2xl"
+            >
+              <button
+                type="button"
+                onClick={closeModal}
+                className="absolute right-4 top-4 inline-flex h-11 w-11 items-center justify-center rounded-full bg-gray-100 text-dark-navy transition-colors hover:bg-gray-200"
+                aria-label="Modalni yopish"
+              >
+                <X className="h-5 w-5" />
+              </button>
+
+              <div className="mb-6 pr-12">
+                <p className="text-sm font-bold tracking-[0.2em] text-primary uppercase">
+                  Kursga yozilish
+                </p>
+                <h3 className="mt-3 text-2xl md:text-3xl font-black text-dark-navy">
+                  Ma'lumotlaringizni qoldiring
+                </h3>
+              </div>
+
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div>
+                  <label className="mb-2 block text-sm font-bold text-dark-navy">
+                    Ism familiya
+                  </label>
+                  <input
+                    type="text"
+                    name="fullName"
+                    value={formData.fullName}
+                    onChange={handleChange}
+                    placeholder="Masalan: Ali Valiyev"
+                    className="w-full rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3.5 text-dark-navy outline-none transition focus:border-primary focus:bg-white"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="mb-2 block text-sm font-bold text-dark-navy">
+                    Telefon raqam
+                  </label>
+                  <input
+                    type="tel"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    placeholder="+998 90 123 45 67"
+                    className="w-full rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3.5 text-dark-navy outline-none transition focus:border-primary focus:bg-white"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="mb-2 block text-sm font-bold text-dark-navy">
+                    Manzil
+                  </label>
+                  <input
+                    type="text"
+                    name="address"
+                    value={formData.address}
+                    onChange={handleChange}
+                    placeholder="Shahar, tuman, ko'cha"
+                    className="w-full rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3.5 text-dark-navy outline-none transition focus:border-primary focus:bg-white"
+                    required
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="mt-2 inline-flex w-full items-center justify-center rounded-2xl bg-primary px-6 py-4 font-black text-white transition hover:bg-primary/90 disabled:cursor-not-allowed disabled:bg-primary/60"
+                >
+                  {isSubmitting ? "Yuborilmoqda..." : "Ma'lumotlarni yozib yuborish"}
+                </button>
+                {submitError && (
+                  <p className="text-sm font-medium text-red-600">{submitError}</p>
+                )}
+                {submitSuccess && (
+                  <p className="text-sm font-medium text-emerald-600">
+                    {submitSuccess}
+                  </p>
+                )}
+              </form>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };
