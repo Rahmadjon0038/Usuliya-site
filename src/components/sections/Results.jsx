@@ -81,7 +81,7 @@ const Results = () => {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch("/api/leads", {
+      const response = await fetch("https://api.usuliya.uz/api/leads", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
