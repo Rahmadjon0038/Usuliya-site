@@ -81,7 +81,7 @@ const Results = () => {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch("http://localhost:3333/api/leads", {
+      const response = await fetch("/api/leads", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
