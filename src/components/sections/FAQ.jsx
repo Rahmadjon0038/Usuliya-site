@@ -9,10 +9,6 @@ const FAQ = () => {
       answer: "Ariza qoldiring va menejerlarimiz sizga qo‘ng‘iroq qilishadi. Tizimimizga kirish uchun maxsus login va parol beriladi.",
     },
     {
-      question: "TO‘LOV QANDAY AMALGA OSHIRILADI?",
-      answer: "To‘lovni Uzcard, Humo, Mastercard yoki Visa kartalari orqali xavfsiz tarzda amalga oshirish mumkin.",
-    },
-    {
       question: "O‘ZLASHTIRISH TARTIBI?",
       answer: "Birinchi navbatda dasturlash asoslarini o‘rganasiz. 1 oy vaqt beriladi, lekin 1 haftada ham tugatish mumkin. Hammasi sizning harakatingizga bog‘liq.",
     },

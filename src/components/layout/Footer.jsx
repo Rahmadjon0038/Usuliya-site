@@ -100,7 +100,6 @@ const Footer = () => {
               <li><a href="#who-is-for" className="hover:text-white transition-colors">Siz uchun</a></li>
               <li><a href="#curriculum" className="hover:text-white transition-colors">Dastur</a></li>
               <li><a href="#results" className="hover:text-white transition-colors">Natijalar</a></li>
-              <li><a href="#pricing" className="hover:text-white transition-colors">Narxlar</a></li>
               <li>
                 <a
                   href="/privacy"

@@ -22,7 +22,7 @@ const CONTENT = {
     title: "Maxfiylik siyosati",
     updatedLabel: "Oxirgi yangilanish",
     intro:
-      "Ushbu Maxfiylik siyosati “Arabic And ACCA” (keyingi o‘rinlarda — “Biz”, “Ijrochi”) tomonidan boshqariladigan USULIYA ta’lim platformasi va mobil ilovasidan foydalanuvchilarning shaxsiy ma’lumotlari qanday yig‘ilishi, ishlatilishi, saqlanishi va himoyalanishini tushuntiradi. Platformadan foydalanish, ro‘yxatdan o‘tish yoki to‘lovni amalga oshirish orqali foydalanuvchi ushbu siyosatga rozilik bildiradi.",
+      "Ushbu Maxfiylik siyosati “Arabic And ACCA” (keyingi o‘rinlarda — “Biz”, “Ijrochi”) tomonidan boshqariladigan USULIYA ta’lim platformasi va mobil ilovasidan foydalanuvchilarning shaxsiy ma’lumotlari qanday yig‘ilishi, ishlatilishi, saqlanishi va himoyalanishini tushuntiradi. Platformadan foydalanish yoki ro‘yxatdan o‘tish orqali foydalanuvchi ushbu siyosatga rozilik bildiradi.",
     sections: [
       {
         heading: "1. Biz yig‘adigan ma’lumotlar",
@@ -31,7 +31,6 @@ const CONTENT = {
         ],
         list: [
           "Hisob ma’lumotlari: ism, telefon raqami, elektron pochta manzili va parol (shifrlangan holda saqlanadi).",
-          "To‘lov ma’lumotlari: to‘lovlar tashqi to‘lov tizimlari orqali amalga oshiriladi. Biz to‘liq bank kartasi raqamlarini saqlamaymiz.",
           "Foydalanish ma’lumotlari: ko‘rilgan darslar, test natijalari, kurslar bo‘yicha jarayon va platformadagi faollik.",
           "Texnik ma’lumotlar: qurilma turi, operatsion tizim versiyasi, IP-manzil va ilova ishidagi xatoliklar (loglar).",
         ],
@@ -41,7 +40,6 @@ const CONTENT = {
         body: ["Yig‘ilgan ma’lumotlardan faqat quyidagi maqsadlarda foydalanamiz:"],
         list: [
           "Xizmatni taqdim etish va akkauntni boshqarish.",
-          "To‘lovlarni qayta ishlash va sotib olingan kurslarni faollashtirish.",
           "O‘quv jarayonini shaxsiylashtirish va xizmat sifatini yaxshilash.",
           "Texnik qo‘llab-quvvatlash ko‘rsatish va muhim xabarnomalarni yuborish.",
           "Qonun hujjatlari talablarini bajarish.",
@@ -53,7 +51,7 @@ const CONTENT = {
           "Biz foydalanuvchilarning shaxsiy ma’lumotlarini sotmaymiz va ijaraga bermaymiz. Ma’lumotlar faqat quyidagi hollarda ulashilishi mumkin:",
         ],
         list: [
-          "Xizmat ko‘rsatish uchun zarur bo‘lgan ishonchli provayderlar bilan: to‘lov tizimlari, hosting/server provayderlari va analitika xizmatlari.",
+          "Xizmat ko‘rsatish uchun zarur bo‘lgan ishonchli provayderlar bilan: hosting/server provayderlari va analitika xizmatlari.",
           "O‘zbekiston Respublikasi qonunchiligi talab qilgan hollarda vakolatli davlat organlariga.",
         ],
       },
@@ -106,14 +104,13 @@ const CONTENT = {
     title: "Privacy Policy",
     updatedLabel: "Last updated",
     intro:
-      "This Privacy Policy explains how the USULIYA educational platform and mobile application, operated by “Arabic And ACCA” (hereinafter “We”, “the Provider”), collects, uses, stores and protects users’ personal data. By using the platform, registering, or making a payment, the user agrees to this Policy.",
+      "This Privacy Policy explains how the USULIYA educational platform and mobile application, operated by “Arabic And ACCA” (hereinafter “We”, “the Provider”), collects, uses, stores and protects users’ personal data. By using the platform or registering, the user agrees to this Policy.",
     sections: [
       {
         heading: "1. Information we collect",
         body: ["To provide our service, we may collect the following information:"],
         list: [
           "Account data: name, phone number, email address and password (stored in encrypted form).",
-          "Payment data: payments are processed through external payment systems. We do not store full bank card numbers.",
           "Usage data: lessons viewed, test results, course progress and activity on the platform.",
           "Technical data: device type, operating system version, IP address and application error reports (logs).",
         ],
@@ -123,7 +120,6 @@ const CONTENT = {
         body: ["We use the collected information only for the following purposes:"],
         list: [
           "To provide the service and manage your account.",
-          "To process payments and activate purchased courses.",
           "To personalize the learning experience and improve service quality.",
           "To provide technical support and send important notifications.",
           "To comply with legal requirements.",
@@ -135,7 +131,7 @@ const CONTENT = {
           "We do not sell or rent users’ personal data. Information may be shared only in the following cases:",
         ],
         list: [
-          "With trusted providers necessary to deliver the service: payment systems, hosting/server providers and analytics services.",
+          "With trusted providers necessary to deliver the service: hosting/server providers and analytics services.",
           "With authorized government bodies where required by the legislation of the Republic of Uzbekistan.",
         ],
       },

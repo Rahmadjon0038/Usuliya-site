@@ -6,7 +6,6 @@ import WhoIsFor from "./components/sections/WhoIsFor.jsx";
 import Curriculum from "./components/sections/Curriculum.jsx";
 import VideoGuide from "./components/sections/VideoGuide.jsx";
 import Results from "./components/sections/Results.jsx";
-import Pricing from "./components/sections/Pricing.jsx";
 import FAQ from "./components/sections/FAQ.jsx";
 import Footer from "./components/layout/Footer.jsx";
 import PrivacyPage from "./components/pages/PrivacyPage.jsx";
@@ -151,7 +150,6 @@ function App() {
           <Curriculum />
           <VideoGuide />
           <Results />
-          <Pricing />
           <FAQ />
         </main>
         <Footer />

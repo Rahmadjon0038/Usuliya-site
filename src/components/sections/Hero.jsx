@@ -47,7 +47,7 @@ const Hero = () => {
             <motion.a
                 whileHover={{ scale: 1.05, boxShadow: "0 20px 25px -5px rgb(0 103 79 / 0.2)" }}
                 whileTap={{ scale: 0.95 }}
-                href="#pricing"
+                href="#results"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-primary text-white text-base md:text-lg px-10 py-5 rounded-2xl font-bold transition-all shadow-xl shadow-primary/20 group"
             >
               HOZIR BOSHLANG
@@ -79,4 +79,3 @@ const Hero = () => {
 };
 
 export default Hero;
-

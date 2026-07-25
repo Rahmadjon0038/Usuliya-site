@@ -21,7 +21,6 @@ const Navbar = () => {
     { name: "Siz uchun", href: "#who-is-for" },
     { name: "Metodika", href: "#curriculum" },
     { name: "Natijalar", href: "#results" },
-    { name: "Narxlar", href: "#pricing" },
   ];
 
   return (
@@ -69,7 +68,7 @@ const Navbar = () => {
               <span>{contactPhone}</span>
             </a>
             <a
-              href="#pricing"
+              href="#results"
               className="flex items-center gap-2 bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-2xl font-bold transition-all shadow-md hover:shadow-lg active:scale-95"
             >
               Bog‘lanish
@@ -107,7 +106,7 @@ const Navbar = () => {
                 </a>
               ))}
               <a
-                href="#pricing"
+                href="#results"
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="flex items-center justify-center gap-3 bg-primary text-white py-4 rounded-2xl font-bold shadow-lg"
               >
