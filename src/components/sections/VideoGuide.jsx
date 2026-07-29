@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Play, FileVideo, Info } from "lucide-react";
 
-const VideoGuide = () => {
+const VideoGuide = ({ content }) => {
   return (
     <section id="video-guide" className="py-20 md:py-32 px-6 bg-dark-navy text-white overflow-hidden relative">
       {/* Background Glow */}
@@ -15,17 +15,17 @@ const VideoGuide = () => {
             className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full text-xs md:text-sm font-bold tracking-widest uppercase mb-6"
           >
             <FileVideo className="w-4 h-4 text-accent" />
-            Qo'llanma
+            {content.badge}
           </motion.div>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             className="text-4xl md:text-6xl font-black mb-8 tracking-tight"
           >
-            Darslikdan qanday <span className="text-accent text-transparent bg-clip-text bg-gradient-to-r from-accent to-emerald-400">foydalanish</span> kerak?
+            {content.titlePrefix} <span className="text-accent text-transparent bg-clip-text bg-gradient-to-r from-accent to-emerald-400">{content.titleHighlight}</span> {content.titleSuffix}
           </motion.h2>
           <p className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto font-medium leading-relaxed">
-            Ushbu video qo'llanma orqali siz platformamiz imkoniyatlari va darsliklardan maksimal foyda olish sirlarini bilib olasiz.
+            {content.subtitle}
           </p>
         </div>
 
@@ -68,11 +68,7 @@ const VideoGuide = () => {
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-20 max-w-5xl mx-auto">
-          {[
-            { title: "Ro'yxatdan o'tish", desc: "Qadam-baqadam ko'rsatma" },
-            { title: "Darslarni yuklash", desc: "Oflayn o'rganish imkoniyati" },
-            { title: "Test topshirish", desc: "Bilimingizni sinab ko'ring" }
-          ].map((item, i) => (
+          {content.cards.map((item, i) => (
             <motion.div 
               key={i}
               initial={{ opacity: 0, y: 20 }}

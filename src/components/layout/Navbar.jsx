@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import { Phone, Menu, X } from "lucide-react";
+import { Phone, Menu, X, Globe } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import usuliya from "../../assets/usuliya.png"
 
-const Navbar = () => {
+const Navbar = ({ lang, setLang, content }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const contactPhone = "+998 93 571 42 30";
@@ -18,9 +18,10 @@ const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { name: "Siz uchun", href: "#who-is-for" },
-    { name: "Metodika", href: "#curriculum" },
-    { name: "Natijalar", href: "#results" },
+    { name: content.about, href: "#who-is-for" },
+    { name: content.methodology, href: "#curriculum" },
+    { name: content.results, href: "#results" },
+    { name: content.contact, href: "#contact-us" },
   ];
 
   return (
@@ -60,6 +61,15 @@ const Navbar = () => {
           className="hidden md:block"
         >
           <div className="flex items-center gap-3 bg-white/70 backdrop-blur px-3 py-2 rounded-2xl border border-gray-100 shadow-sm">
+            <button
+              type="button"
+              onClick={() => setLang(lang === "en" ? "uz" : "en")}
+              className="flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm font-bold text-dark-navy transition hover:border-primary hover:text-primary"
+              aria-label="Toggle language"
+            >
+              <Globe className="w-4 h-4" />
+              {content.languageLabel}
+            </button>
             <a
               href={contactPhoneHref}
               className="flex items-center gap-2 text-dark-navy font-bold px-2 py-1 rounded-xl hover:text-primary transition-colors"
@@ -68,10 +78,10 @@ const Navbar = () => {
               <span>{contactPhone}</span>
             </a>
             <a
-              href="#results"
+              href="#contact-us"
               className="flex items-center gap-2 bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-2xl font-bold transition-all shadow-md hover:shadow-lg active:scale-95"
             >
-              Bog‘lanish
+              {content.contactButton}
             </a>
           </div>
         </motion.div>
@@ -95,6 +105,14 @@ const Navbar = () => {
             className="md:hidden bg-white border-b border-gray-100 overflow-hidden"
           >
             <div className="px-6 py-8 flex flex-col gap-6">
+              <button
+                type="button"
+                onClick={() => setLang(lang === "en" ? "uz" : "en")}
+                className="inline-flex items-center gap-2 self-start rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm font-bold text-dark-navy"
+              >
+                <Globe className="w-4 h-4" />
+                {content.mobileLanguageLabel}: {content.languageLabel}
+              </button>
               {navLinks.map((link) => (
                 <a
                   key={link.name}
@@ -106,11 +124,11 @@ const Navbar = () => {
                 </a>
               ))}
               <a
-                href="#results"
+                href="#contact-us"
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="flex items-center justify-center gap-3 bg-primary text-white py-4 rounded-2xl font-bold shadow-lg"
               >
-                Bog‘lanish <Phone className="w-5 h-5" />
+                {content.contactButton} <Phone className="w-5 h-5" />
               </a>
             </div>
           </motion.div>

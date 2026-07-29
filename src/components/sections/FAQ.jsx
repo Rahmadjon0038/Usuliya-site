@@ -2,30 +2,7 @@ import { useState } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const FAQ = () => {
-  const faqData = [
-    {
-      question: "QANDAY FOYDALANISH MUMKIN?",
-      answer: "Ariza qoldiring va menejerlarimiz sizga qo‘ng‘iroq qilishadi. Tizimimizga kirish uchun maxsus login va parol beriladi.",
-    },
-    {
-      question: "O‘ZLASHTIRISH TARTIBI?",
-      answer: "Birinchi navbatda dasturlash asoslarini o‘rganasiz. 1 oy vaqt beriladi, lekin 1 haftada ham tugatish mumkin. Hammasi sizning harakatingizga bog‘liq.",
-    },
-    {
-      question: "MENI SOHAMGA TO‘G‘RI KELADIMI?",
-      answer: "Kim bo‘lishingizdan qat’iy nazar, arab tilini o‘rganish kelajagingizga katta ta’sir qiladi. Ayniqsa sun’iy intellekt rivojlanayotgan davrda.",
-    },
-    {
-      question: "USTOZ BO‘LADIMI?",
-      answer: "Tizim sizning darajangizga mos savollar, testlar va loyihalar beradi. Qo‘shimcha ravishda Telegram guruhida 100+ kursdosh va tajribali ustozlar yordam berishadi.",
-    },
-    {
-      question: "NIMALAR KERAK BO‘LADI?",
-      answer: "Faqat internet va noutbuk (yoki kompyuter) yetarli. Mobil qurilmalar orqali ham darslarni kuzatish imkoniyati bor.",
-    },
-  ];
-
+const FAQ = ({ content }) => {
   const [openIndex, setOpenIndex] = useState(null);
 
   return (
@@ -38,13 +15,13 @@ const FAQ = () => {
             viewport={{ once: true }}
             className="text-3xl md:text-5xl font-black mb-6 text-dark-navy"
           >
-            Ko‘p beriladigan savollar
+            {content.title}
           </motion.h2>
-          <p className="text-lg md:text-xl text-gray-400 font-medium font-medium">Sizda savollar bormi? Bizda javoblar bor.</p>
+          <p className="text-lg md:text-xl text-gray-400 font-medium font-medium">{content.subtitle}</p>
         </div>
 
         <div className="space-y-3 md:space-y-4">
-          {faqData.map((item, index) => (
+          {content.items.map((item, index) => (
             <motion.div 
               key={index} 
               initial={{ opacity: 0, y: 20 }}

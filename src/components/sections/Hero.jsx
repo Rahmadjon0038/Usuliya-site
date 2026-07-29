@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Sparkles } from 'lucide-react';
 
-const Hero = () => {
+const Hero = ({ content }) => {
   return (
     <section className="relative px-6 pt-24 pb-16 md:pt-48 md:pb-32 overflow-hidden bg-life-white">
       {/* Premium Background Elements */}
@@ -20,25 +20,25 @@ const Hero = () => {
           {/* Badge */}
           <div className="inline-flex items-center gap-2 px-6 py-2 bg-primary/10 text-primary border border-primary/20 rounded-full text-xs md:text-sm font-bold tracking-wider mb-8 uppercase backdrop-blur-sm">
             <Sparkles className="w-4 h-4" />
-            "USULIYA" bilan Arab tilini tez va oson o'rganing
+            {content.badge}
           </div>
 
           {/* Main Title */}
           <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black leading-[1.1] mb-8 text-dark-navy tracking-tight">
-            ARAB tilini 0 dan <br className="hidden md:block" />
+            {content.titlePrefix} <br className="hidden md:block" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-secondary">
-              10ta darsda
+              {content.titleHighlight}
             </span> <br className="hidden md:block" />
-            quronga tushasiz
+            {content.titleSuffix}
           </h1>
 
           {/* Sub Content */}
           <div className="max-w-3xl mx-auto mb-12">
             <p className="text-lg md:text-2xl text-gray-600 leading-relaxed font-medium mb-4">
-              Agarda siz arab tilini 10 ta darsda o'rganib olsangiz bemalol harflarni ajrata olasiz.
+              {content.subtitle}
             </p>
             <p className="text-base md:text-lg text-primary/80 font-semibold italic bg-primary/5 py-4 px-6 rounded-2xl border border-primary/10 inline-block">
-              "Siz aniq ishonchingiz komil bo'lsin bu platforma orqali xohlagan joyingizda, xohlagan turizda o'rganishingiz mumkin"
+              {content.note}
             </p>
           </div>
 
@@ -46,19 +46,19 @@ const Hero = () => {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-6">
             <motion.a
                 whileHover={{ scale: 1.05, boxShadow: "0 20px 25px -5px rgb(0 103 79 / 0.2)" }}
-                whileTap={{ scale: 0.95 }}
-                href="#results"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-primary text-white text-base md:text-lg px-10 py-5 rounded-2xl font-bold transition-all shadow-xl shadow-primary/20 group"
+              whileTap={{ scale: 0.95 }}
+              href="#results"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-primary text-white text-base md:text-lg px-10 py-5 rounded-2xl font-bold transition-all shadow-xl shadow-primary/20 group"
             >
-              HOZIR BOSHLANG
+              {content.primaryCta}
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </motion.a>
             <motion.a
-                whileHover={{ x: 5 }}
-                href="#who-is-for"
-                className="text-dark-navy font-bold hover:text-primary transition-colors flex items-center gap-2 py-2 text-base md:text-lg"
+              whileHover={{ x: 5 }}
+              href="#who-is-for"
+              className="text-dark-navy font-bold hover:text-primary transition-colors flex items-center gap-2 py-2 text-base md:text-lg"
             >
-              Batafsil ma'lumot
+              {content.secondaryCta}
               <ArrowRight className="w-4 h-4 opacity-50" />
             </motion.a>
           </div>

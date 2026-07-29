@@ -2,39 +2,23 @@ import { cloneElement } from "react";
 import { motion } from "framer-motion";
 import { BookOpen, Globe, Award, Zap, CheckCircle2 } from "lucide-react";
 
-const Curriculum = () => {
+const Curriculum = ({ content }) => {
   const steps = [
     {
       color: "border-primary text-primary",
       icon: <BookOpen className="w-12 h-12" />,
-      stage: "BOSQICH 1",
-      title: "O‘qish va yozish",
-      lessons: "10 dars",
-      desc: "Arab alifbosini noldan mukammal o‘rganish. Har bitta harfning talaffuzi va yozilishini professional darajada o'zlashtirasiz."
     },
     {
       color: "border-emerald-600 text-emerald-600",
       icon: <Globe className="w-12 h-12" />,
-      stage: "BOSQICH 2",
-      title: "B2 darajasi",
-      lessons: "60 dars",
-      desc: "Zamonaviy suhbat tili. Siz kundalik muloqotda kerak bo'ladigan barcha iboralarni va grammatikani o'rganasiz."
     },
     {
       color: "border-amber-600 text-amber-600",
       icon: <Award className="w-12 h-12" />,
-      stage: "BOSQICH 3",
-      title: "Sarf va Nahv",
-      lessons: "144 dars",
-      desc: "Klassik arab grammatikasi. Matnlarni tahlil qilish va murakkab gaplarni tuzish qobiliyatini rivojlantirasiz."
     },
     {
       color: "border-purple-600 text-purple-600",
       icon: <BookOpen className="w-12 h-12" />,
-      stage: "BOSQICH 4",
-      title: "Qur’on tafsiri",
-      lessons: "279 dars",
-      desc: "Qur’onni to‘g‘ri o‘qish va chuqur tushunish. Tafsir orqali ma'nolarni chaqib olasiz."
     },
   ];
 
@@ -48,7 +32,7 @@ const Curriculum = () => {
               whileInView={{ opacity: 1 }}
               className="text-primary font-bold tracking-[0.2em] uppercase text-xs md:text-sm mb-4 block"
             >
-              Ta'lim tizimi
+              {content.eyebrow}
             </motion.span>
             <motion.h2
               initial={{ opacity: 0, x: -30 }}
@@ -56,19 +40,14 @@ const Curriculum = () => {
               viewport={{ once: true }}
               className="text-4xl md:text-6xl font-black mb-8 text-dark-navy tracking-tight"
             >
-              Darslar qanday <br /> o'tiladi?
+              {content.title} <br /> {""}
             </motion.h2>
             <p className="text-lg md:text-xl text-gray-600 font-medium leading-relaxed mb-8">
-              Bizning "USULIYA" metodikamiz orqali siz quruq yodlashdan voz kechasiz. Har bir dars interaktiv va natijaga yo'naltirilgan.
+              {content.subtitle}
             </p>
             
             <ul className="space-y-4">
-              {[
-                "Video darslar va interaktiv vazifalar",
-                "Har bir darsdan so'ng nazorat testi",
-                "Ustoz bilan doimiy aloqa va savol-javoblar",
-                "Amaliy muloqot darslari (Speaking club)"
-              ].map((item, i) => (
+              {content.points.map((item, i) => (
                 <motion.li 
                   key={i}
                   initial={{ opacity: 0, x: -20 }}
@@ -87,9 +66,9 @@ const Curriculum = () => {
             <div className="absolute -top-10 -right-10 bg-primary text-white p-6 rounded-3xl rotate-12 shadow-xl hidden md:block">
               <Zap className="w-10 h-10 fill-current" />
             </div>
-            <h3 className="text-2xl md:text-3xl font-black text-dark-navy mb-6">Metodika siri</h3>
+            <h3 className="text-2xl md:text-3xl font-black text-dark-navy mb-6">{content.secretTitle}</h3>
             <p className="text-gray-600 text-lg leading-relaxed font-semibold">
-              Biz "0 dan 10 darsda" tizimi orqali til o'rganishdagi eng katta to'siqni - harflarni tanimaslikni tezda yengamiz. Bu sizga kursning ilk kunlaridanoq natijani his qilish imkonini beradi.
+              {content.secretText}
             </p>
           </div>
         </div>
@@ -108,10 +87,10 @@ const Curriculum = () => {
               <div className={`${item.color.split(' ')[1]} mb-8`}>
                 {cloneElement(item.icon, { className: "w-10 h-10 md:w-12 md:h-12" })}
               </div>
-              <div className="text-[10px] md:text-xs font-black tracking-[0.2em] uppercase opacity-60 mb-2">{item.stage}</div>
-              <div className="text-xl md:text-2xl font-black mb-4 text-dark-navy leading-tight">{item.title}</div>
-              <div className="text-4xl md:text-5xl font-black text-dark-navy mb-6">{item.lessons}</div>
-              <p className="text-sm md:text-base text-gray-500 font-medium leading-relaxed flex-1">{item.desc}</p>
+              <div className="text-[10px] md:text-xs font-black tracking-[0.2em] uppercase opacity-60 mb-2">{content.steps[i].stage}</div>
+              <div className="text-xl md:text-2xl font-black mb-4 text-dark-navy leading-tight">{content.steps[i].title}</div>
+              <div className="text-4xl md:text-5xl font-black text-dark-navy mb-6">{content.steps[i].lessons}</div>
+              <p className="text-sm md:text-base text-gray-500 font-medium leading-relaxed flex-1">{content.steps[i].desc}</p>
             </motion.div>
           ))}
         </div>
@@ -121,4 +100,3 @@ const Curriculum = () => {
 };
 
 export default Curriculum;
-

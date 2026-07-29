@@ -1,4 +1,4 @@
-import { Send, Phone, Mail, MapPin } from "lucide-react";
+import { Send } from "lucide-react";
 import usuliyaWhite from "../../assets/usuliyaWhite.png"
 
 const InstagramIcon = ({ className }) => (
@@ -33,12 +33,8 @@ const YouTubeIcon = ({ className }) => (
   </svg>
 );
 
-const Footer = () => {
+const Footer = ({ content }) => {
   const currentYear = new Date().getFullYear();
-  const mapsUrl = "https://maps.app.goo.gl/4V8w5hqQ6sCAdoLB9";
-  const addressText = "Toshkent shahri";
-  const contactPhone = "+998 93 571 42 30";
-  const contactPhoneHref = "tel:+998935714230";
   const telegramUrl = "https://t.me/usuliya";
   const instagramUrl = "https://www.instagram.com/usuliya.uz";
   const youtubeUrl = "https://youtube.com/@ibrohim_tizim_franshiza";
@@ -51,7 +47,7 @@ const Footer = () => {
             <div className="flex flex-col items-center md:items-start">
               <img src={usuliyaWhite} alt="usuliya" className="w-36 h-12 mb-2  sm:w-40 sm:h-14 md:w-[200px] md:h-[70px] object-contain" />
               <p className="text-gray-400 text-lg leading-relaxed max-w-md mb-10 mx-auto md:mx-0">
-                Biz bilan arab tilini va zamonaviy bilimlarni noldan o‘rganing. Kelajagingizni bugundan quring.
+                {content.description}
               </p>
             </div>
             <div className="flex justify-center md:justify-start gap-6">
@@ -68,44 +64,18 @@ const Footer = () => {
           </div>
 
           <div>
-            <h3 className="text-xl font-bold mb-8">Aloqa</h3>
+            <h3 className="text-xl font-bold mb-8">{content.quickLinks}</h3>
             <ul className="space-y-6 text-gray-400 text-lg">
-              <li className="flex items-center justify-center md:justify-start gap-4">
-                <Phone className="w-5 h-5 text-white/80" />
-                <a href={contactPhoneHref} className="hover:text-white transition-colors">
-                  {contactPhone}
-                </a>
-              </li>
-              <li className="flex items-center justify-center md:justify-start gap-4">
-                <Mail className="w-5 h-5 text-white/80" />
-                <span>info@arabiya.uz</span>
-              </li>
-              <li className="flex items-center justify-center md:justify-start gap-4">
-                <MapPin className="w-5 h-5 text-white/80" />
-                <a
-                  href={mapsUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="hover:text-white transition-colors break-words whitespace-normal"
-                >
-                  {addressText}
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="text-xl font-bold mb-8">Tezkor havolalar</h3>
-            <ul className="space-y-6 text-gray-400 text-lg">
-              <li><a href="#who-is-for" className="hover:text-white transition-colors">Siz uchun</a></li>
-              <li><a href="#curriculum" className="hover:text-white transition-colors">Dastur</a></li>
-              <li><a href="#results" className="hover:text-white transition-colors">Natijalar</a></li>
+              <li><a href="#who-is-for" className="hover:text-white transition-colors">{content.links.about}</a></li>
+              <li><a href="#curriculum" className="hover:text-white transition-colors">{content.links.methodology}</a></li>
+              <li><a href="#results" className="hover:text-white transition-colors">{content.links.results}</a></li>
+              <li><a href="#contact-us" className="hover:text-white transition-colors">{content.links.contact}</a></li>
               <li>
                 <a
                   href="/privacy"
                   className="hover:text-white transition-colors"
                 >
-                  Maxfiylik siyosati
+                  {content.links.privacy}
                 </a>
               </li>
               <li>
@@ -113,7 +83,7 @@ const Footer = () => {
                   href="/eng-privacy"
                   className="hover:text-white transition-colors"
                 >
-                  Privacy Policy (English)
+                  {content.links.privacyEn}
                 </a>
               </li>
             </ul>
@@ -125,7 +95,7 @@ const Footer = () => {
             © {currentYear} USULIYA. Barcha huquqlar himoyalangan.
           </p>
           <div className="text-xl font-black text-white/80">
-            BIZ BILAN YANGI DUNYO YARATING
+            {content.slogan}
           </div>
         </div>
       </div>

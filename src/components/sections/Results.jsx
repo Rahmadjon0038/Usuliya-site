@@ -5,7 +5,7 @@ import arabOffice from "../../assets/results/arab_office.png";
 import quranStudent from "../../assets/results/quran_student.png";
 import successTeam from "../../assets/results/success_team.png";
 
-const Results = () => {
+const Results = ({ content }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
@@ -19,24 +19,24 @@ const Results = () => {
   const results = [
     {
       image: arabOffice,
-      title: "Xalqaro martaba",
-      desc: "Bitiruvchilarimiz BAA va Saudiya Arabistonining nufuzli kompaniyalarida faoliyat yuritishmoqda.",
-      count: "500+",
-      label: "Muvaffaqiyatli ishchilar"
+      title: content.items[0].title,
+      desc: content.items[0].desc,
+      count: content.items[0].count,
+      label: content.items[0].label
     },
     {
       image: quranStudent,
-      title: "Ma'naviy yutuqlar",
-      desc: "Minglab talabalarimiz Qur'oni Karimni mustaqil va xatosiz o'qish baxtiga muyassar bo'lishdi.",
-      count: "10,000+",
-      label: "Qur'on o'quvchilar"
+      title: content.items[1].title,
+      desc: content.items[1].desc,
+      count: content.items[1].count,
+      label: content.items[1].label
     },
     {
       image: successTeam,
-      title: "Jamoaviy natijalar",
-      desc: "Bizning bitiruvchilarimiz Arab dunyosi bilan biznes va madaniy aloqalarni o'rnatishda yetakchi.",
-      count: "50+",
-      label: "Hamkor kompaniyalar"
+      title: content.items[2].title,
+      desc: content.items[2].desc,
+      count: content.items[2].count,
+      label: content.items[2].label
     }
   ];
 
@@ -90,12 +90,12 @@ const Results = () => {
       });
 
       if (!response.ok) {
-        throw new Error("Lead yuborishda xatolik yuz berdi");
+        throw new Error(content.modalError);
       }
 
       const createdLead = await response.json();
       console.log("Yuborilgan lead:", createdLead);
-      setSubmitSuccess("Ma'lumotlaringiz yuborildi.");
+      setSubmitSuccess(content.modalSuccess);
       setFormData({
         fullName: "",
         phone: "",
@@ -110,7 +110,7 @@ const Results = () => {
       setSubmitError(
         error instanceof Error
           ? error.message
-          : "Lead yuborishda xatolik yuz berdi"
+          : content.modalError
       );
     } finally {
       setIsSubmitting(false);
@@ -126,14 +126,14 @@ const Results = () => {
             whileInView={{ opacity: 1 }}
             className="text-primary font-bold tracking-[0.2em] uppercase text-xs md:text-sm mb-4 block"
           >
-            Natijalarimiz
+            {content.eyebrow}
           </motion.span>
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             className="text-4xl md:text-6xl font-black text-dark-navy mb-6 tracking-tight"
           >
-            Talabalarimiz erishgan <span className="text-primary">yutuqlar</span>
+            {content.titlePrefix} <span className="text-primary">{content.titleHighlight}</span>
           </motion.h2>
           <div className="w-24 h-2 bg-primary/20 mx-auto rounded-full"></div>
         </div>
@@ -183,9 +183,9 @@ const Results = () => {
           className="mt-24 p-8 md:p-16 bg-primary rounded-[40px] text-white flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden"
         >
           <div className="relative z-10">
-            <h3 className="text-3xl md:text-5xl font-black mb-4">Siz ham natijaga erishing!</h3>
+            <h3 className="text-3xl md:text-5xl font-black mb-4">{content.bannerTitle}</h3>
             <p className="text-white/80 text-lg md:text-xl font-medium max-w-xl">
-              Minglab hamyurtlarimiz kabi siz ham Arab tilini noldan o'rganib, o'z hayotingizni yangi bosqichga olib chiqing.
+              {content.bannerDesc}
             </p>
           </div>
           <motion.button 
@@ -194,7 +194,7 @@ const Results = () => {
             onClick={() => setIsModalOpen(true)}
             className="relative z-10 bg-white text-primary px-10 py-5 rounded-2xl font-black text-lg md:text-xl shadow-2xl shadow-black/20"
           >
-            KURSGA YOZILISH
+            {content.bannerCta}
           </motion.button>
           
           {/* Decorative Circles */}
@@ -231,24 +231,24 @@ const Results = () => {
 
               <div className="mb-6 pr-12">
                 <p className="text-sm font-bold tracking-[0.2em] text-primary uppercase">
-                  Kursga yozilish
+                  {content.modalTitle}
                 </p>
                 <h3 className="mt-3 text-2xl md:text-3xl font-black text-dark-navy">
-                  Ma'lumotlaringizni qoldiring
+                  {content.modalHeading}
                 </h3>
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
                   <label className="mb-2 block text-sm font-bold text-dark-navy">
-                    Ism familiya
+                    {content.modalFields.fullName}
                   </label>
                   <input
                     type="text"
                     name="fullName"
                     value={formData.fullName}
                     onChange={handleChange}
-                    placeholder="Masalan: Ali Valiyev"
+                    placeholder={content.modalPlaceholders.fullName}
                     className="w-full rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3.5 text-dark-navy outline-none transition focus:border-primary focus:bg-white"
                     required
                   />
@@ -256,14 +256,14 @@ const Results = () => {
 
                 <div>
                   <label className="mb-2 block text-sm font-bold text-dark-navy">
-                    Telefon raqam
+                    {content.modalFields.phone}
                   </label>
                   <input
                     type="tel"
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
-                    placeholder="+998 90 123 45 67"
+                    placeholder={content.modalPlaceholders.phone}
                     className="w-full rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3.5 text-dark-navy outline-none transition focus:border-primary focus:bg-white"
                     required
                   />
@@ -271,14 +271,14 @@ const Results = () => {
 
                 <div>
                   <label className="mb-2 block text-sm font-bold text-dark-navy">
-                    Manzil
+                    {content.modalFields.address}
                   </label>
                   <input
                     type="text"
                     name="address"
                     value={formData.address}
                     onChange={handleChange}
-                    placeholder="Shahar, tuman, ko'cha"
+                    placeholder={content.modalPlaceholders.address}
                     className="w-full rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3.5 text-dark-navy outline-none transition focus:border-primary focus:bg-white"
                     required
                   />
@@ -289,7 +289,7 @@ const Results = () => {
                   disabled={isSubmitting}
                   className="mt-2 inline-flex w-full items-center justify-center rounded-2xl bg-primary px-6 py-4 font-black text-white transition hover:bg-primary/90 disabled:cursor-not-allowed disabled:bg-primary/60"
                 >
-                  {isSubmitting ? "Yuborilmoqda..." : "Ma'lumotlarni yozib yuborish"}
+                  {isSubmitting ? content.modalSending : content.modalButton}
                 </button>
                 {submitError && (
                   <p className="text-sm font-medium text-red-600">{submitError}</p>

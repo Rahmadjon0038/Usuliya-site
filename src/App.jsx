@@ -1,17 +1,31 @@
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "./components/layout/Navbar.jsx"
 import Hero from "./components/sections/Hero.jsx";
 import WhoIsFor from "./components/sections/WhoIsFor.jsx";
 import Curriculum from "./components/sections/Curriculum.jsx";
 import VideoGuide from "./components/sections/VideoGuide.jsx";
 import Results from "./components/sections/Results.jsx";
+import ContactUs from "./components/sections/ContactUs.jsx";
 import FAQ from "./components/sections/FAQ.jsx";
 import Footer from "./components/layout/Footer.jsx";
 import PrivacyPage from "./components/pages/PrivacyPage.jsx";
 import SeoHead from "./components/SeoHead.jsx";
+import { getSiteContent } from "./content/siteContent.js";
 
 function App() {
+  const [lang, setLang] = useState(() => {
+    if (typeof window === "undefined") {
+      return "en";
+    }
+
+    const storedLang = window.localStorage.getItem("usuliya-lang");
+    if (storedLang === "uz" || storedLang === "en") {
+      return storedLang;
+    }
+
+    return "en";
+  });
   const pathname = window.location.pathname.replace(/\/+$/, "") || "/";
   const privacyLangByRoute = {
     "/privacy": "uz",
@@ -21,6 +35,7 @@ function App() {
   const isPrivacyRoute = Boolean(privacyLang);
   const siteOrigin = window.location.origin;
   const canonicalPath = pathname;
+  const content = getSiteContent(lang);
 
   const seoConfig = (() => {
     if (privacyLang === "uz") {
@@ -50,17 +65,29 @@ function App() {
     }
 
     return {
-      title: "USULIYA | Arab tilini 0 dan o'rganish",
+      title:
+        lang === "en"
+          ? "USULIYA | Learn Arabic from Zero"
+          : "USULIYA | Arab tilini 0 dan o'rganish",
       description:
-        "USULIYA - arab tilini 0 dan o'rganish uchun zamonaviy platforma. 10 ta darsda harflarni ajratish, o'qish va yozish asoslarini mustahkamlang.",
+        lang === "en"
+          ? "USULIYA is a modern platform for learning Arabic from zero. Build a strong foundation in reading, writing, and letter recognition in 10 lessons."
+          : "USULIYA - arab tilini 0 dan o'rganish uchun zamonaviy platforma. 10 ta darsda harflarni ajratish, o'qish va yozish asoslarini mustahkamlang.",
       robots: "index, follow, max-image-preview:large",
-      lang: "uz-Latn",
+      lang: lang === "en" ? "en" : "uz-Latn",
       canonicalUrl: `${siteOrigin}${canonicalPath}`,
       keywords:
-        "USULIYA, arab tili, arab tilini o'rganish, online arab tili, arab alifbosi, 0 dan arab tili, usuliya academy",
+        lang === "en"
+          ? "USULIYA, Arabic language, learn Arabic, online Arabic lessons, Arabic alphabet, Arabic from zero, usuliya academy"
+          : "USULIYA, arab tili, arab tilini o'rganish, online arab tili, arab alifbosi, 0 dan arab tili, usuliya academy",
       pageType: "WebSite",
     };
   })();
+
+  useEffect(() => {
+    window.localStorage.setItem("usuliya-lang", lang);
+    document.documentElement.lang = lang === "en" ? "en" : "uz";
+  }, [lang]);
 
   useEffect(() => {
     if (isPrivacyRoute) {
@@ -143,16 +170,17 @@ function App() {
     <>
       <SeoHead config={seoConfig} siteOrigin={siteOrigin} />
       <div className="min-h-screen bg-life-white font-roboto text-dark-navy overflow-x-hidden selection:bg-primary selection:text-white">
-        <Navbar />
+        <Navbar lang={lang} setLang={setLang} content={content.nav} />
         <main>
-          <Hero />
-          <WhoIsFor />
-          <Curriculum />
-          <VideoGuide />
-          <Results />
-          <FAQ />
+          <Hero content={content.hero} />
+          <WhoIsFor content={content.who} />
+          <Curriculum content={content.curriculum} />
+          <VideoGuide content={content.video} />
+          <Results content={content.results} />
+          <ContactUs content={content.contact} />
+          <FAQ content={content.faq} />
         </main>
-        <Footer />
+        <Footer content={content.footer} />
       </div>
     </>
   );

@@ -1,33 +1,25 @@
 import { motion } from "framer-motion";
 import { Briefcase, BookOpen, Globe, Star } from "lucide-react";
 
-const WhoIsFor = () => {
+const WhoIsFor = ({ content }) => {
   const items = [
     {
       icon: <Briefcase className="w-8 h-8 md:w-10 md:h-10" />,
-      title: "Arab davlatlarida ishlash",
-      desc: "Dubay, Saudiya Arabistoni, Qatar va BAA kabi davlatlarning yirik kompaniyalarida yuqori maoshli ish o‘rinlarida ishlash imkoniyati.",
       color: "from-blue-500/10 to-blue-600/5",
       accent: "text-blue-400",
     },
     {
       icon: <BookOpen className="w-8 h-8 md:w-10 md:h-10" />,
-      title: "Qur’oni Karimni o‘qish",
-      desc: "Muqaddas Qur’onni asl arab tilida, tajvid qoidalari bilan to‘g‘ri va go‘zal o‘qishni chuqur o‘rganasiz.",
       color: "from-emerald-500/10 to-emerald-600/5",
       accent: "text-emerald-400",
     },
     {
       icon: <Globe className="w-8 h-8 md:w-10 md:h-10" />,
-      title: "Sayohat va erkin muloqot",
-      desc: "Arab dunyosi bo‘ylab sayohat qilganda, Umra va Haj safarlarida mahalliy aholi bilan bemalol arab tilida suhbatlashish.",
       color: "from-amber-500/10 to-amber-600/5",
       accent: "text-amber-400",
     },
     {
       icon: <Star className="w-8 h-8 md:w-10 md:h-10" />,
-      title: "Ilmiy va diniy tadqiqotlar",
-      desc: "Qadimgi manbalar, islomiy adabiyot va fiqhiy kitoblarni asl arab tilida to‘g‘ridan-to‘g‘ri o‘rganish imkoniyati.",
       color: "from-purple-500/10 to-purple-600/5",
       accent: "text-purple-400",
     },
@@ -43,7 +35,7 @@ const WhoIsFor = () => {
             whileInView={{ opacity: 1 }}
             className="text-primary font-bold tracking-[0.2em] uppercase text-xs md:text-sm mb-4 block"
           >
-            KIMLAR UCHUN
+            {content.eyebrow}
           </motion.span>
 
           <motion.h2
@@ -51,11 +43,11 @@ const WhoIsFor = () => {
             whileInView={{ opacity: 1, y: 0 }}
             className="text-4xl md:text-6xl font-black text-white mb-6 tracking-tight"
           >
-            Bu kurs kimlar uchun?
+            {content.title}
           </motion.h2>
 
           <p className="max-w-2xl mx-auto text-gray-300 text-lg md:text-xl font-medium">
-            Arab tilini mukammal o‘rganib, hayotingizni butunlay o‘zgartiradigan imkoniyatlarga ega bo‘ling
+            {content.subtitle}
           </p>
 
           <div className="w-24 h-1 bg-primary/30 mx-auto mt-8 rounded-full"></div>
@@ -83,10 +75,10 @@ const WhoIsFor = () => {
               {/* Content */}
               <div className="flex-1">
                 <h3 className="text-2xl md:text-3xl font-black text-white mb-5 leading-tight">
-                  {item.title}
+                  {content.items[index].title}
                 </h3>
                 <p className="text-gray-300 text-[17px] leading-relaxed font-medium">
-                  {item.desc}
+                  {content.items[index].desc}
                 </p>
               </div>
 
