@@ -16,7 +16,7 @@ import { getSiteContent } from "./content/siteContent.js";
 function App() {
   const [lang, setLang] = useState(() => {
     if (typeof window === "undefined") {
-      return "en";
+      return "uz";
     }
 
     const storedLang = window.localStorage.getItem("usuliya-lang");
@@ -24,7 +24,7 @@ function App() {
       return storedLang;
     }
 
-    return "en";
+    return "uz";
   });
   const pathname = window.location.pathname.replace(/\/+$/, "") || "/";
   const privacyLangByRoute = {
