@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Play, FileVideo, Info } from "lucide-react";
 
 const VideoGuide = ({ content }) => {
+  const telegramChannelUrl = "https://t.me/Usuliya_Otzivlari";
   return (
     <section id="video-guide" className="py-20 md:py-32 px-6 bg-dark-navy text-white overflow-hidden relative">
       {/* Background Glow */}
@@ -44,14 +45,18 @@ const VideoGuide = ({ content }) => {
             
             {/* Overlay */}
             <div className="absolute inset-0 bg-dark-navy/40 group-hover:bg-dark-navy/20 transition-colors duration-500 flex items-center justify-center">
-              <motion.button
+              <motion.a
+                href={telegramChannelUrl}
+                target="_blank"
+                rel="noreferrer"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 className="w-20 h-20 md:w-28 md:h-28 bg-primary text-white rounded-full flex items-center justify-center shadow-2xl relative"
+                aria-label="Open Telegram feedback channel"
               >
                 <div className="absolute inset-0 bg-primary rounded-full animate-ping opacity-25"></div>
                 <Play className="w-8 h-8 md:w-12 md:h-12 fill-current ml-1" />
-              </motion.button>
+              </motion.a>
             </div>
 
             {/* Video Controls Fake UI */}

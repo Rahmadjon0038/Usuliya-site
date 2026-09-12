@@ -13,6 +13,23 @@ import PrivacyPage from "./components/pages/PrivacyPage.jsx";
 import SeoHead from "./components/SeoHead.jsx";
 import { getSiteContent } from "./content/siteContent.js";
 
+const APP_STORE_URLS = {
+  apple: "https://apps.apple.com/ca/app/usuliya/id6775377699",
+  android: "https://play.google.com/store/apps/details?id=com.usuliya.app",
+};
+
+const getStoreUrl = () => {
+  if (typeof window === "undefined") {
+    return APP_STORE_URLS.android;
+  }
+
+  const ua = window.navigator.userAgent || "";
+  const isAppleDevice = /iPhone|iPad|iPod/i.test(ua) ||
+    (window.navigator.platform === "MacIntel" && window.navigator.maxTouchPoints > 1);
+
+  return isAppleDevice ? APP_STORE_URLS.apple : APP_STORE_URLS.android;
+};
+
 function App() {
   const [lang, setLang] = useState(() => {
     if (typeof window === "undefined") {
@@ -26,6 +43,8 @@ function App() {
 
     return "uz";
   });
+  const [showInstallPrompt, setShowInstallPrompt] = useState(true);
+  const appStoreUrl = getStoreUrl();
   const pathname = window.location.pathname.replace(/\/+$/, "") || "/";
   const privacyLangByRoute = {
     "/privacy": "uz",
@@ -181,6 +200,47 @@ function App() {
           <FAQ content={content.faq} />
         </main>
         <Footer content={content.footer} />
+
+        {showInstallPrompt && (
+          <div className="fixed bottom-4 left-1/2 z-50 w-[min(960px,calc(100vw-2rem))] -translate-x-1/2">
+            <div className="rounded-[24px] border border-white/10 bg-dark-navy px-5 py-4 text-white shadow-2xl shadow-black/30">
+              <div className="flex flex-wrap items-center justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  <span className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-primary text-white font-black">
+                    ✦
+                  </span>
+                  <div>
+                    <p className="text-xs font-black uppercase tracking-[0.18em] text-primary">
+                      USULIYA App
+                    </p>
+                    <p className="text-lg md:text-2xl font-black leading-tight">
+                      Mobil ilovamizni yuklab oling
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <a
+                    href={appStoreUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center justify-center rounded-2xl bg-emerald-500 px-6 py-3 font-black text-white transition hover:bg-emerald-400"
+                  >
+                    Yuklash
+                  </a>
+                  <button
+                    type="button"
+                    onClick={() => setShowInstallPrompt(false)}
+                    className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20"
+                    aria-label="Dismiss download prompt"
+                  >
+                    ×
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </>
   );
