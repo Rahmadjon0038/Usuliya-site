@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Sparkles } from 'lucide-react';
+import { ArrowRight, Sparkles, Download } from 'lucide-react';
 
 const Hero = ({ content }) => {
   return (
@@ -61,6 +61,18 @@ const Hero = ({ content }) => {
               {content.secondaryCta}
               <ArrowRight className="w-4 h-4 opacity-50" />
             </motion.a>
+          </div>
+
+          <div className="mt-8 flex justify-center">
+            <a
+              href="#results"
+              className="inline-flex items-center gap-3 rounded-2xl border border-primary/30 bg-white px-6 py-4 text-sm md:text-base font-black text-primary shadow-lg shadow-primary/10 transition hover:bg-primary hover:text-white"
+            >
+              <Download className="w-5 h-5" />
+              <span>{content.appInstall.title}</span>
+              <span className="hidden sm:inline">•</span>
+              <span className="hidden sm:inline">{content.appInstall.subtitle}</span>
+            </a>
           </div>
         </motion.div>
       </div>

@@ -6,6 +6,10 @@ const ContactUs = ({ content }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
   const [submitSuccess, setSubmitSuccess] = useState("");
+  const [smsCode, setSmsCode] = useState("");
+  const [expectedCode, setExpectedCode] = useState("");
+  const [smsCodeSent, setSmsCodeSent] = useState(false);
+  const [isPhoneVerified, setIsPhoneVerified] = useState(false);
   const [formData, setFormData] = useState({
     fullName: "",
     phone: "",
@@ -20,16 +24,62 @@ const ContactUs = ({ content }) => {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
+    if (name === "phone") {
+      setIsPhoneVerified(false);
+      setSmsCodeSent(false);
+      setSmsCode("");
+      setExpectedCode("");
+    }
+
     setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
   };
 
+  const requestSmsCode = () => {
+    const phone = formData.phone.trim();
+    const validPhone = /^[+]?[(]?[0-9\s().-]{9,18}$/.test(phone);
+
+    if (!validPhone) {
+      setSubmitError(content.phoneInvalid ?? "Please enter a valid phone number.");
+      return;
+    }
+
+    const fakeCode = "123456";
+    setExpectedCode(fakeCode);
+    setSmsCodeSent(true);
+    setIsPhoneVerified(false);
+    setSubmitError("");
+    setSubmitSuccess(content.phoneCodeSent ?? "SMS code has been sent.");
+  };
+
+  const verifySmsCode = () => {
+    if (!smsCodeSent) {
+      setSubmitError(content.phoneVerifyRequired ?? "Verify your phone number by SMS before submitting.");
+      return;
+    }
+
+    if (smsCode.trim() === expectedCode) {
+      setIsPhoneVerified(true);
+      setSubmitError("");
+      setSubmitSuccess(content.phoneCodeVerified ?? "Phone number has been verified.");
+      return;
+    }
+
+    setSubmitError(content.phoneVerifyRequired ?? "Verify your phone number by SMS before submitting.");
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     setSubmitError("");
     setSubmitSuccess("");
+
+    if (!isPhoneVerified) {
+      setSubmitError(content.phoneVerifyRequired ?? "Verify your phone number by SMS before submitting.");
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
@@ -189,15 +239,54 @@ const ContactUs = ({ content }) => {
               <label className="mb-2 block text-sm font-bold text-dark-navy">
                 {content.phoneField}
               </label>
-              <input
-                type="tel"
-                name="phone"
-                value={formData.phone}
-                onChange={handleChange}
-                placeholder={content.placeholders.phone}
-                className="w-full rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3.5 text-dark-navy outline-none transition focus:border-primary focus:bg-white"
-                required
-              />
+              <div className="flex gap-2">
+                <input
+                  type="tel"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  placeholder={content.placeholders.phone}
+                  className="w-full rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3.5 text-dark-navy outline-none transition focus:border-primary focus:bg-white"
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={requestSmsCode}
+                  className="whitespace-nowrap rounded-2xl bg-dark-navy px-4 py-3.5 font-black text-white transition hover:bg-primary"
+                >
+                  {content.phoneRequestCode ?? "Send SMS code"}
+                </button>
+              </div>
+
+              {smsCodeSent && (
+                <div className="mt-3 rounded-2xl border border-primary/20 bg-primary/5 p-3">
+                  <div className="mb-2 text-sm font-bold text-primary">
+                    {content.phoneVerifyTitle ?? "Phone number must be verified by SMS"}
+                  </div>
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      value={smsCode}
+                      onChange={(event) => setSmsCode(event.target.value)}
+                      placeholder={content.phoneCodePlaceholder ?? "123456"}
+                      className="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3 text-dark-navy outline-none transition focus:border-primary"
+                    />
+                    <button
+                      type="button"
+                      onClick={verifySmsCode}
+                      className="rounded-2xl bg-primary px-4 py-3 font-black text-white transition hover:bg-primary/90"
+                    >
+                      {content.phoneConfirmCode ?? "Verify code"}
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {isPhoneVerified && (
+                <p className="mt-2 text-sm font-bold text-emerald-600">
+                  {content.phoneCodeVerified ?? "Phone number is verified."}
+                </p>
+              )}
             </div>
 
             <div>
